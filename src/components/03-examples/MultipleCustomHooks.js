@@ -1,14 +1,17 @@
-import React from 'react';
+//import React, { useState } from 'react';
+import { useCounter } from '../../hooks/useCounter';
 import { useFetch } from '../../hooks/useFetch';
 import '../02-useEffect/effect.css';
 
 export const MultipleCustomHooks = () => {
     
-    const { loading, data, error} = useFetch('https://www.breakingbadapi.com/api/quotes/75');
+    const { counter, increment } = useCounter(1);
+    //console.log(state)
+    //const {counter, setCounter} = useState(1);
+    const { loading, data, error} = useFetch(`https://www.breakingbadapi.com/api/quotes/${counter}`);
     
-    const {author, quote} = data[0];
-    console.log(data);
-
+    const {author, quote} = !!data && data[0];
+    //console.log(author, quote)
     return (
         <div>
             <h1>Breaking Bad Quotes</h1>
@@ -25,6 +28,7 @@ export const MultipleCustomHooks = () => {
             )
             }
             
+            <button className="btn btn-primary" onClick={increment}>Next Quote</button>    
             
         </div>
     )
