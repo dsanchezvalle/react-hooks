@@ -1,20 +1,65 @@
-import React, { useReducer } from 'react'
+import React, { useEffect, useReducer, useRef } from 'react'
 import './styles.css'
 import { todoReducer } from './todoReducer'
 
-const initialState = [{
-    id: new Date().getTime(),
-    desc: 'Learn React',
-    done: false
-}]
+import { useForm } from '../../hooks/useForm'
+
+// const initialState = [{
+//     id: new Date().getTime(),
+//     desc: 'Learn React',
+//     done: false
+// }]
+
+const init = () => {
+    
+    //return localStorage.getItem('todos');
+    return JSON.parse(localStorage.getItem('todos')) || [];
+
+    // return [{
+    //     id: new Date().getTime(),
+    //     desc: 'Learn React',
+    //     done: false
+    // }]
+}
 
 export const TodoApp = () => {
     
 
+    //const inputRef = useRef('')
+    const [todos , dispatch] = useReducer(todoReducer, [], init);
 
-    const [todos , dispatch] = useReducer(todoReducer, initialState)
+    const [{ description }, handleInputChange, reset] = useForm({
+        description: ''
+    });
     
-    console.log(todos)
+
+    useEffect(() => {
+        localStorage.setItem('todos', JSON.stringify(todos))
+    }, [todos])
+    
+    console.log(description)
+    const handleSubmit = (e) =>{
+        e.preventDefault();
+        
+        if(description.trim().length <= 1){
+            return;
+        }
+
+        const newToDo = {
+            id: new Date().getTime(),
+            desc: description,
+            done: false
+        }
+
+        const actionAddToDo = {
+            type: 'ADD',
+            payload: newToDo
+        }
+        //console.log(newToDo);
+        dispatch(actionAddToDo);
+        reset();
+        //todoReducer(todos, actionAddToDo);
+    }
 
     return (
         <div>
@@ -37,14 +82,22 @@ export const TodoApp = () => {
                 <div className="col-5">
                     <h4>Add To Do</h4>
                     <hr/>
-                    <form>
+                    <form onSubmit={handleSubmit}>
                         <input 
+                            // ref={inputRef}
                             type="text" name="description"
                             className="form-control"
                             placeholder="Learn..."
                             autoComplete="off"
+                            onChange={handleInputChange}
+                            value={description}
                         />
-                        <button className="btn btn-outline-primary mt-1 btn-block">Add</button>
+                        <button 
+                            className="btn btn-outline-primary mt-1 btn-block"
+                            type="submit"
+                        >
+                            Add
+                        </button>
                     </form>
                 </div>
             </div>
