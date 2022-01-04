@@ -3,6 +3,7 @@ import './styles.css'
 import { todoReducer } from './todoReducer'
 
 import { useForm } from '../../hooks/useForm'
+import { TodoList } from './components/TodoList'
 
 // const initialState = [{
 //     id: new Date().getTime(),
@@ -37,7 +38,7 @@ export const TodoApp = () => {
         localStorage.setItem('todos', JSON.stringify(todos))
     }, [todos])
     
-    console.log(description)
+    //console.log(description)
     
     const handleSubmit = (e) =>{
         e.preventDefault();
@@ -89,16 +90,7 @@ export const TodoApp = () => {
             
             <div className="row">
                 <div className="col-7">
-                    <ul className="list-group list-group-flush">
-                        {
-                            todos.map(({id, desc, done}, i) => 
-                                (<li key={id} className="list-group-item">
-                                <p className={`${done && 'complete'}`} onClick={() => handleToggle (id)}> { i + 1 }. {desc} </p>
-                                <button className="btn btn-danger" onClick={ () => handleDelete(id) }>Delete</button>
-                                </li>)
-                            )
-                        }
-                    </ul>
+                    <TodoList todos={todos} handleDelete={handleDelete} handleToggle={handleToggle} />
                 </div>
                 <div className="col-5">
                     <h4>Add To Do</h4>
