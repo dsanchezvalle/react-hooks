@@ -38,6 +38,7 @@ export const TodoApp = () => {
     }, [todos])
     
     console.log(description)
+    
     const handleSubmit = (e) =>{
         e.preventDefault();
         
@@ -55,10 +56,21 @@ export const TodoApp = () => {
             type: 'ADD',
             payload: newToDo
         }
+
         //console.log(newToDo);
         dispatch(actionAddToDo);
         reset();
         //todoReducer(todos, actionAddToDo);
+    }
+
+    const handleDelete = (id) => {
+        const actionDeleteToDo = {
+            type: 'DELETE',
+            payload: id 
+        }
+
+        dispatch(actionDeleteToDo);
+
     }
 
     return (
@@ -73,7 +85,7 @@ export const TodoApp = () => {
                             todos.map(({id, desc, done}, i) => 
                                 (<li key={id} className="list-group-item">
                                 <p className="text-center"> { i + 1 }. {desc} </p>
-                                <button className="btn btn-danger">Delete</button>
+                                <button className="btn btn-danger" onClick={ () => handleDelete(id) }>Delete</button>
                                 </li>)
                             )
                         }
