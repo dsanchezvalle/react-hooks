@@ -1,33 +1,19 @@
-import React, { useEffect, useReducer, useRef } from 'react'
+//Dependencies
+import React, { useEffect, useReducer } from 'react'
+//Styles
 import './styles.css'
+//Reducer
 import { todoReducer } from './todoReducer'
-
-//import { useForm } from '../../hooks/useForm'
+//Components
 import { TodoList } from './components/TodoList'
 import { TodoAdd } from './components/TodoAdd'
 
-// const initialState = [{
-//     id: new Date().getTime(),
-//     desc: 'Learn React',
-//     done: false
-// }]
-
 const init = () => {
-    
-    //return localStorage.getItem('todos');
     return JSON.parse(localStorage.getItem('todos')) || [];
-
-    // return [{
-    //     id: new Date().getTime(),
-    //     desc: 'Learn React',
-    //     done: false
-    // }]
 }
 
 export const TodoApp = () => {
     
-
-    //const inputRef = useRef('')
     const [todos , dispatch] = useReducer(todoReducer, [], init);
 
     useEffect(() => {
@@ -44,7 +30,6 @@ export const TodoApp = () => {
     }
 
     const handleToggle = (id) => {
-        
         const actionToggleToDo = {
             type: 'TOGGLE',
             payload: id
@@ -65,7 +50,7 @@ export const TodoApp = () => {
             <h1>ToDo App ({todos.length})</h1>
             <hr/>
             
-            <div className="row">
+            <section className="row">
                 <div className="col-7">
                     <TodoList todos={todos} handleDelete={handleDelete} handleToggle={handleToggle} />
                 </div>
@@ -74,9 +59,7 @@ export const TodoApp = () => {
                         handleAddToDo={handleAddToDo}
                     />
                 </div>
-            </div>
-            
-
+            </section>
         </div>
     )
 }

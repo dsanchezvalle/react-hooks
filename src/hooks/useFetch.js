@@ -28,8 +28,6 @@ export const useFetch = (url) => {
         fetch(url)
         .then(resp => resp.json())
         .then(data => {
-            
-            
                 if(isMounted.current){
                     setState({
                         data,

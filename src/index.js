@@ -15,7 +15,8 @@ import './components/08-useReducer/TodoApp'
 //import { CallbackHook } from './components/06-memos/CallbackHook';
 //import { HookApp } from './HookApp';
 //import { Padre } from './components/07-tarea-memo/Padre';
-    import { TodoApp } from './components/08-useReducer/TodoApp';
+//import './components/08-useReducer/intro-reducer'
+import { TodoApp } from './components/08-useReducer/TodoApp';
 
 ReactDOM.render(
   
@@ -23,10 +24,5 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-//reportWebVitals();
 
 
-//import './components/08-useReducer/intro-reducer'

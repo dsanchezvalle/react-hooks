@@ -1,5 +1,5 @@
 const todoReducer = (state = initialToDos, action) => {
-    //console.log(action)
+    
     if (action?.type === 'ADD'){
         return [...state, action.payload]
     }
@@ -26,7 +26,6 @@ const addAction = {
 
 
 let todos = todoReducer();
-console.log(todos)
 
 todos = todoReducer(todos, addAction);
-console.log(todos)
+//console.log(todos)
