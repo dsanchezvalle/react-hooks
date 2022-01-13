@@ -39,7 +39,14 @@ export const useFetch = (url) => {
                     console.log('setState was not called')
                 } */
         }    
-        );
+        )
+        .catch(()=> {
+            setState({
+                data: null,
+                loading: false,
+                error: 'We can not retrieve the info.'
+            })
+        })
     }, [url])
 
     return state
